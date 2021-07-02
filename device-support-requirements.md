@@ -250,7 +250,7 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 ## Non-PIE Blobs
 
-* Devices MUST NOT use non-PIE binaries.
+* Devices MUST NOT use [non-PIE (Position Independent Executable)](https://en.wikipedia.org/wiki/Position-independent_code "Wikipedia Entry on PIE") binaries.
 
 ## Proprietary files extraction
 
