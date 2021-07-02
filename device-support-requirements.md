@@ -1,4 +1,4 @@
-Welcome to the LineageOS Device Support Requirements. This document enumerates the requirements that must be met in order for devices to be deemed ship ready for LineageOS releases, beginning with Android Oreo.
+Welcome to the CarbonROM Device Support Requirements. This document enumerates the requirements that must be met in order for devices to be deemed ship ready for CarbonROM releases, beginning with Android 11 (R).
 To be considered ready, device maintainers MUST meet the requirements presented in this document, including any documents incorporated via reference.
 
 The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” is per the IETF standard defined in RFC2119.
@@ -63,7 +63,7 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 
 ## Process
 
-* Device or software deviations from our core product (as described below) MUST be approved by no less than 3 Project Directors.
+* Device or software deviations from our core product (as described below) MUST be approved by the Project Lead.
 * Device or software exceptions SHOULD be made via change request to this repository.
 * All device or software exceptions that are granted MUST be documented on the Wiki for all affected devices.
 
@@ -77,7 +77,6 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 * Tablet devices capable of in-call audio/speaker audio MUST support in-call/speaker audio.
 * Devices SHOULD support any additional audio configuration inherent to their device (eg. echo cancellation, extra mics, etc).
 * All devices MUST support any other audio output supported by their stock OS (eg. headphone jack, USB-C, BT).
-* All devices with FM radio capabilities in their stock OS SHOULD support FM.
 
 ## RIL
 
@@ -114,7 +113,6 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 * All devices with Bluetooth MUST report same MAC address as on stock OS.
 * All devices with Bluetooth SHOULD support Bluetooth tethering.
 * All devices with support for Qualcomm® aptX™, aptX™ HD, or any future variant of aptX™, in stock (non-beta releases) OS SHOULD support those variant of aptX™.
-* All devices without support for Qualcomm® aptX™, aptX™ HD, or any future variant of aptX™ in stock (non-beta releases) OS MUST NOT support those variants of aptX™.
 
 ## Camera
 
@@ -178,7 +176,7 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 
 ## Hardware Deviations
 
-__Hardware deviations are defined as exemptions granted for hardware requirements above that worked in stock, but do not work in LineageOS.__
+__Hardware deviations are defined as exemptions granted for hardware requirements above that worked in stock, but do not work in CarbonROM.__
 
 * All hardware deviations from stock MUST be reported on the Wiki page for the device, with a user understandable justification.
 
@@ -186,13 +184,13 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 ## Device tree structure
 
-* Device trees MUST contain a Lineage-specific makefile with device declaration of lineage_[devicename].
-* Device trees MUST support a lineage.dependencies file for `breakfast` command & roomservice to be functional.
-  * This file MUST NOT include any dependencies outside of the "LineageOS" organization.
+* Device trees MUST contain a carbon-specific makefile with device declaration of carbon_[devicename].
+* Device trees MUST support a carbon.dependencies file for `lunch` command & roomservice to be functional.
+* This file SHOULD NOT include any dependencies outside of the "CarbonROM" organization.
 
 ## Build type
 
-* All devices MUST be configured as userdebug releases.
+* All devices MUST be configured as user releases.
 
 ## Kernel
 
@@ -220,7 +218,7 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
   * noop
   * row
 
-* All devices MUST only ship hotplugging drivers provided by the OEM or SoC vendor.
+* All devices SHOULD only ship hotplugging drivers provided by the OEM or SoC vendor.
 
 ## SELinux status
 
@@ -228,12 +226,12 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 ## Verity
 
-* All devices MUST disable verity on the system image for userdebug builds.
+* All devices MUST disable verity on the system image for user and userdebug builds.
 * All devices SHOULD support verity on the vendor image.
 
 ## Updater
 
-* All devices with a shipping build of LineageOS MUST support upgrades via the native LineageOS Updater application & the recovery documented on the Wiki for that device.
+* All devices with a shipping build of CarbonROM MUST support upgrades via the native CarbonROM Updater application (CarbonDelta) & the recovery documented on the Wiki for that device.
 
 ## FRP
 
@@ -249,7 +247,6 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 ## Root (su)
 
 * All devices MUST NOT ship with su included.
-* All devices shipping LineageOS 16.0 or earlier MUST support su installation via LineageOS provided ‘Extras’ download.
 
 ## Non-PIE Blobs
 
@@ -257,11 +254,11 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 ## Proprietary files extraction
 
-* Devices MUST have a working proprietary files extraction script in their device tree (or device tree dependencies) that reproduces an exact copy of the binaries required to build LineageOS from an existing LineageOS installation.
-* Devices SHOULD use the global extraction script (located in vendor/lineage).
+* Devices SHOULD have a working proprietary files extraction script in their device tree (or device tree dependencies) that reproduces an exact copy of the binaries required to build CarbonROM from an existing CarbonROM installation.
+* Devices SHOULD use the global extraction script (located in tools/extract-utils).
 * If a device maintainer elects to not use the common extraction script, the maintainer MUST ensure that the Wiki page for their device has valid instructions for operating the custom extraction script.
-* Devices MUST use proprietary files extracted from, in order of preference, the same device's publicly-released image, another device's publicly-released image, or some other source with appropriately transferrable use/release/dissemination rights. In the event of the last option, artifacts documenting suitable transferability of rights MUST be provided to LineageOS project leadership.
-* All proprietary files lists MUST contain a short comment noting the source of any un-pinned (default) proprietary files.
+* Devices SHOULD use proprietary files extracted from, in order of preference, the same device's publicly-released image or another device's publicly-released image.
+* All proprietary files lists SHOULD contain a short comment noting the source of any un-pinned (default) proprietary files.
 * Any proprietary files not sourced from the noted default MUST be pinned in the respective proprietary files list and have a short comment noting the source of those proprietary files.
 
 ## CVE
@@ -274,26 +271,27 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 * All devices MUST assert on known to be working firmware versions if some firmware versions are known to be non-working.
 * A/B devices are exempted from the above rule, and instead must do one of the following:
   * If the device is capable of shipping firmware it MUST do so.
-  * If the device is not capable of shipping firmware (eg. a device with multiple variants supported in one build) the device MUST ensure both slots are on a known good firmware (eg. using the copy-partitions before_lineage_install template on the Wiki).
+  * If the device is not capable of shipping firmware (eg. a device with multiple variants supported in one build) the device MUST ensure both slots are on a known good firmware (eg. using the copy-partitions before_carbon_install template on the Wiki).
 
 ## exFAT Support
 
-__LineageOS operates under the assumption that OEM device licensing for exFAT is attached to the device, not software. LineageOS will comply with all requests for removal of exFAT support from OEMs, Microsoft or their representatives upon contact to legal@lineageos.org.__
+__LineageOS operates under the assumption that OEM device licensing for exFAT is attached to the device, not software. CarbonROM will comply with all requests for removal of exFAT support from OEMs, Microsoft or their representatives upon contact to legal@carbonrom.org.__
 
 * All devices with exFAT support on stock MAY support exFAT with (and only with) a kernel based implementation.
-* All devices without exFAT support on stock MUST NOT support exFAT.
 
 ## Additional Features
 
 * All devices SHOULD support in-kernel (MDSS, MDNIE or similar) LiveDisplay colour adjustment.
+* All devices with an OLED screen SHOULD support SmartPixels.
+* All devices without an OLED screen MUST NOT support SmartPixels.
 
 ## Software Deviations
 
-__Software deviations are defined as exemptions granted for software requirements above that worked in stock, but do not work in LineageOS.__
+__Software deviations are defined as exemptions granted for software requirements above that worked in stock, but do not work in CarbonROM.__
 
-* All software deviations from other LineageOS devices of the same type MUST be approved by Directors (eg. if one wants to remove Music app, get approval).
-* All software deviations from other LineageOS devices of the same type MUST be reported on the Wiki page for the device, with a user understandable justification.
-* Device maintainers MUST ship Jelly or another LineageOS sourced web browser.
+* All software deviations from other CarbonROM devices of the same type MUST be approved by Leads (eg. if one wants to remove Music app, get approval).
+* All software deviations from other CarbonROM devices of the same type MUST be reported on the Wiki page for the device, with a user understandable justification.
+* Device maintainers MUST ship Jelly or another CarbonROM sourced web browser.
 
 ## Vendor Images
 * All non-A/B devices relying on an OEM provided vendor partition must assert vendor image versions at flash-time.
@@ -310,20 +308,14 @@ __Software deviations are defined as exemptions granted for software requirement
 
 ## Copyrights
 
-* All original contributions MUST be copyrighted as “(C) [YEAR] The LineageOS Project”.
-* All LineageOS copyrights MUST only be additive to the copyright header.
-* Do not remove copyrights from CyanogenMod, Cyanogen Inc or any other upstream.
+* All original contributions MUST be copyrighted as “(C) [YEAR] CarbonROM”.
+* All CarbonROM copyrights MUST only be additive to the copyright header.
+* Do not remove copyrights from CyanogenMod, Cyanogen Inc, LineageOS or any other upstream.
 
 ## Workflow
 
 * Force pushing branches SHOULD be avoided.
 * In the event of a force pushed branch, backup branches of the pre-forced HEAD MUST be made.
-
-## GitLab Issues
-
-* Device maintainer(s) MUST have a GitLab account for bug tracking and cross-team collaboration.
-* Device maintainer(s) MUST routinely triage, answer and close bug reports.
-* Device maintainer(s) SHOULD make their GitLab name match their maintainer name as displayed on the Wiki.
 
 ## Licensing
 
@@ -334,9 +326,9 @@ __Software deviations are defined as exemptions granted for software requirement
 
 ## Wiki
 
-* All devices with a shipping build of LineageOS MUST have a Wiki page with valid installation instructions.
-* All devices with a shipping build of LineageOS MUST document Hardware Deviations from stock capabilities.
-* All devices with a shipping build of LineageOS MUST document Software Deviations from other LineageOS releases of the same device type.
+* All devices with a shipping build of CarbonROM MUST have a Wiki page with valid installation instructions.
+* All devices with a shipping build of CarbonROM MUST document Hardware Deviations from stock capabilities.
+* All devices with a shipping build of CarbonROM MUST document Software Deviations from other CarbonROM releases of the same device type.
 
 ## Stability
 
@@ -345,11 +337,11 @@ __Software deviations are defined as exemptions granted for software requirement
 
 ## Recovery
 
-* Maintainers MUST document for users on the Wiki a valid Recovery image by which to install LineageOS zip files.
-* Devices that do not have traditional Recovery images MUST support & document another means of installation for LineageOS zip files.
-* Maintainers wishing to ship LineageOS 17.0+ for their device MUST verify official Lineage Recovery distributions work for LineageOS installation.
-* Maintainers SHOULD ship Lineage recovery as the default solution for their device on the Wiki, though may provide TWRP, or any valid recovery image so long as they have valid installation instructions on the Wiki.
-* Maintainers SHOULD verify that Teamwin Recovery Project (TWRP) official distributions work for LineageOS installation.
+* Maintainers MUST document for users on the Wiki a valid Recovery image by which to install CarbonROM zip files.
+* Devices that do not have traditional Recovery images MUST support & document another means of installation for CarbonROM zip files.
+* Maintainers wishing to ship CarbonROM 9.0+ for their device MUST verify official Carbon Recovery distributions work for CarbonROM installation.
+* Maintainers SHOULD ship Carbon recovery as the default solution for their device on the Wiki, though may provide TWRP, or any valid recovery image so long as they have valid installation instructions on the Wiki.
+* Maintainers SHOULD verify that Teamwin Recovery Project (TWRP) official distributions work for CarbonROM installation.
 * Failures in official TWRP recoveries SHOULD be raised with the TWRP team or remedied by the maintainer.
 
 # Exceptions
@@ -358,10 +350,7 @@ All currently granted exceptions should be listed in the following table. To req
 
 | Date       | Device/OEM         | Section Exempted               | Reason |
 |------------|--------------------|--------------------------------|--------|
-| 2018/02/08 | Samsung            | Hardware Encryption            | Samsung devices that cannot support hardware encryption due to Knox/Tee are exempted from the hardware crypto requirements. MUST still support software crypto. |
-| 2018/02/11 | Android TV devices | In-Remote Microphones          | Requires proprietary audio routing/methods that have no OSS counterpart, and rely on proprietary functions. MUST support Microphone input through the Android TV Remote app.|
-| 2018/02/12 | hlte[can/tmo/usc/vzw] | NFC                         | Stock NFC HAL is undocumented and doesn't match any known interfaces. Stealing configs and firmware from devices with a proper setup fails due to a signature mismatch when the (required) firmware download is attempted. |
-| 2019/10/21 | s3ve3g.            | NFC                         | Stock NFC HAL is undocumented and doesn't match any known interfaces. Stealing configs and firmware from devices with a proper setup fails due to a signature mismatch when the (required) firmware download is attempted. |
+|            |                    |                                |        |
 ---
 
 __This document is licensed CC-BY-3.0, with portions adapted from Google’s CDD requirements.__
