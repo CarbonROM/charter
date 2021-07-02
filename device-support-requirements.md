@@ -40,7 +40,6 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
   * [SafetyNet](#safetynet)
   * [Binder](#binder)
   * [Root (su)](#root-su)
-  * [Non-PIE Blobs](#non-pie-blobs)
   * [Proprietary files extraction](#proprietary-files-extraction)
   * [CVE](#cve)
   * [Firmware](#firmware)
@@ -248,10 +247,6 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 * All devices MUST NOT ship with su included.
 
-## Non-PIE Blobs
-
-* Devices MUST NOT use non-PIE binaries.
-
 ## Proprietary files extraction
 
 * Devices SHOULD have a working proprietary files extraction script in their device tree (or device tree dependencies) that reproduces an exact copy of the binaries required to build CarbonROM from an existing CarbonROM installation.
@@ -259,6 +254,7 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 * Devices SHOULD use proprietary files extracted from, in order of preference, the same device's publicly-released image or another device's publicly-released image.
 * All proprietary files lists SHOULD contain a short comment noting the source of any un-pinned (default) proprietary files.
 * Any proprietary files not sourced from the noted default MUST be pinned in the respective proprietary files list and have a short comment noting the source of those proprietary files.
+* Devices MUST NOT use [non-PIE](https://en.wikipedia.org/wiki/Position-independent_code) binaries. Position-independent executable linker support has [long been removed](https://source.android.com/security/enhancements/enhancements50.html)
 
 ## CVE
 
