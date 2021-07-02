@@ -54,7 +54,7 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
   * [Workflow](#workflow)
   * [GitLab Issues](#gitlab-issues)
   * [Licensing](#licensing)
-  * [Wiki](#wiki)
+  * [Docs](#docs)
   * [Stability](#stability)
   * [Recovery](#recovery)
 * [Exceptions](#exceptions)
@@ -65,7 +65,7 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 
 * Device or software deviations from our core product (as described below) MUST be approved by the Project Lead.
 * Device or software exceptions SHOULD be made via change request to this repository.
-* All device or software exceptions that are granted MUST be documented on the Wiki for all affected devices.
+* All device or software exceptions that are granted MUST be documented in [Exceptions](#exceptions).
 
 # Hardware Support
 
@@ -178,7 +178,7 @@ The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT
 
 __Hardware deviations are defined as exemptions granted for hardware requirements above that worked in stock, but do not work in CarbonROM.__
 
-* All hardware deviations from stock MUST be reported on the Wiki page for the device, with a user understandable justification.
+* All hardware deviations from stock MUST be reported in [Exceptions](#exceptions), with a user understandable justification.
 
 # Software support
 
@@ -231,7 +231,7 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 ## Updater
 
-* All devices with a shipping build of CarbonROM MUST support upgrades via the native CarbonROM Updater application (CarbonDelta) & the recovery documented on the Wiki for that device.
+* All devices with a shipping build of CarbonROM MUST support upgrades via the native CarbonROM Updater application (CarbonDelta) & the recovery documented for that device.
 
 ## FRP
 
@@ -256,7 +256,6 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 
 * Devices SHOULD have a working proprietary files extraction script in their device tree (or device tree dependencies) that reproduces an exact copy of the binaries required to build CarbonROM from an existing CarbonROM installation.
 * Devices SHOULD use the global extraction script (located in tools/extract-utils).
-* If a device maintainer elects to not use the common extraction script, the maintainer MUST ensure that the Wiki page for their device has valid instructions for operating the custom extraction script.
 * Devices SHOULD use proprietary files extracted from, in order of preference, the same device's publicly-released image or another device's publicly-released image.
 * All proprietary files lists SHOULD contain a short comment noting the source of any un-pinned (default) proprietary files.
 * Any proprietary files not sourced from the noted default MUST be pinned in the respective proprietary files list and have a short comment noting the source of those proprietary files.
@@ -271,7 +270,7 @@ __Hardware deviations are defined as exemptions granted for hardware requirement
 * All devices MUST assert on known to be working firmware versions if some firmware versions are known to be non-working.
 * A/B devices are exempted from the above rule, and instead must do one of the following:
   * If the device is capable of shipping firmware it MUST do so.
-  * If the device is not capable of shipping firmware (eg. a device with multiple variants supported in one build) the device MUST ensure both slots are on a known good firmware (eg. using the copy-partitions before_carbon_install template on the Wiki).
+  * If the device is not capable of shipping firmware (eg. a device with multiple variants supported in one build) the device MUST ensure both slots are on a known good firmware.
 
 ## exFAT Support
 
@@ -290,15 +289,15 @@ __LineageOS operates under the assumption that OEM device licensing for exFAT is
 __Software deviations are defined as exemptions granted for software requirements above that worked in stock, but do not work in CarbonROM.__
 
 * All software deviations from other CarbonROM devices of the same type MUST be approved by Leads (eg. if one wants to remove Music app, get approval).
-* All software deviations from other CarbonROM devices of the same type MUST be reported on the Wiki page for the device, with a user understandable justification.
+* All software deviations from other CarbonROM devices of the same type MUST be reported in [Exceptions](#exceptions), with a user understandable justification.
 * Device maintainers MUST ship Jelly or another CarbonROM sourced web browser.
 
 ## Vendor Images
 * All non-A/B devices relying on an OEM provided vendor partition must assert vendor image versions at flash-time.
 * All A/B devices with a vendor partition MUST either:
   * Build a vendor image.
-  * Detail on the Wiki: The required firmware version, the process of installing it, and a process that ensures all slots are on the same firmware (eg. the Wiki's copy-partitions template).
-* All maintainers MUST NOT require a modified prebuilt vendor image either in their build tree, or on the Wiki.
+  * Detail (e.g. in the XDA thread): The required firmware version, the process of installing it, and a process that ensures all slots are on the same firmware.
+* All maintainers MUST NOT require a modified prebuilt vendor image either in their build tree, or the install instructions.
 * All Treble enabled devices SHOULD verify basic hardware functionality with an AOSP GSI.
 
 # Quality of life
@@ -324,9 +323,8 @@ __Software deviations are defined as exemptions granted for software requirement
 * Any contribution to an existing Apache 2.0 project MUST fall under Apache Compliance Category A.
 * Any contribution to an existing Apache 2.0 project MUST NOT be in Apache Compliance Category X.
 
-## Wiki
+## Docs
 
-* All devices with a shipping build of CarbonROM MUST have a Wiki page with valid installation instructions.
 * All devices with a shipping build of CarbonROM MUST document Hardware Deviations from stock capabilities.
 * All devices with a shipping build of CarbonROM MUST document Software Deviations from other CarbonROM releases of the same device type.
 
@@ -337,10 +335,10 @@ __Software deviations are defined as exemptions granted for software requirement
 
 ## Recovery
 
-* Maintainers MUST document for users on the Wiki a valid Recovery image by which to install CarbonROM zip files.
+* Maintainers MUST document a valid Recovery image by which to install CarbonROM zip files.
 * Devices that do not have traditional Recovery images MUST support & document another means of installation for CarbonROM zip files.
 * Maintainers wishing to ship CarbonROM 9.0+ for their device MUST verify official Carbon Recovery distributions work for CarbonROM installation.
-* Maintainers SHOULD ship Carbon recovery as the default solution for their device on the Wiki, though may provide TWRP, or any valid recovery image so long as they have valid installation instructions on the Wiki.
+* Maintainers SHOULD list Carbon recovery as the default solution for their device, though may provide TWRP, or any valid recovery image so long as they have valid installation instructions.
 * Maintainers SHOULD verify that Teamwin Recovery Project (TWRP) official distributions work for CarbonROM installation.
 * Failures in official TWRP recoveries SHOULD be raised with the TWRP team or remedied by the maintainer.
 
